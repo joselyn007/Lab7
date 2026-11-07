@@ -22,9 +22,11 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        // La protección se aplica a todos los endpoints solicitados: /api/**
-        return !request.getServletPath().startsWith("/api/");
-    }
+        String ruta = request.getRequestURI()
+            .substring(request.getContextPath().length());
+
+    return !ruta.startsWith("/api/");
+}
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
